@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ResidentsComponent } from './residents.component';
+
 export const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'residents',
-    pathMatch: 'full',
-  },
-  {
     path: 'residents',
-    loadChildren: () =>
-      import('./residents/residents.module').then((m) => m.ResidentsModule),
+    children: [
+      {
+        path: '',
+        component: ResidentsComponent,
+      },
+    ],
   },
 ];
 
@@ -18,4 +19,4 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class ResidentsRoutingModule {}
