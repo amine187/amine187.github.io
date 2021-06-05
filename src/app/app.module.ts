@@ -8,7 +8,7 @@ import { ResidentsModule } from './residents/residents.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, CoreModule, ResidentsModule],
+  imports: [BrowserModule, CoreModule, ResidentsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })
