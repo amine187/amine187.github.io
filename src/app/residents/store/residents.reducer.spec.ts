@@ -128,7 +128,7 @@ describe('ResidentsReducer', () => {
           id: 2,
           username: 'sebastian.müller',
           firstname: 'sebastian',
-          quote: '',
+          quote: 'his quote',
         },
       ];
       const expectedResult = [
@@ -136,13 +136,13 @@ describe('ResidentsReducer', () => {
           id: 1,
           username: 'johnathan.doe',
           firstname: 'johnathan',
-          quote: '',
+          quote: 'his quote',
         },
         {
           id: 2,
           username: 'sebastian.müller',
           firstname: 'sebastian',
-          quote: 'my quote',
+          quote: '',
         },
       ];
       const store = createStore(residentsReducer);
@@ -152,7 +152,7 @@ describe('ResidentsReducer', () => {
 
       expect(store.getState()).toEqual(dataAPI);
 
-      const quoteAction = residentsActions.quoteAssigned(1, 2);
+      const quoteAction = residentsActions.quoteAssigned(2, 1);
       store.dispatch(quoteAction);
 
       expect(store.getState()).toEqual(expectedResult);
