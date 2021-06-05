@@ -9,4 +9,13 @@ export class ResidentsActions {
       payload: data,
     };
   }
+
+  residentsFiltered(firstname: string) {
+    return {
+      type: actions.RESIDENTS_FILTERED,
+      payload: {
+        firstname,
+      },
+    };
+  }
 }
