@@ -113,4 +113,49 @@ describe('ResidentsReducer', () => {
       expect(store.getState()).toEqual(expectedResult);
     }
   ));
+
+  it('should return the a new state when QUOTE_ASSIGNED action was dispatched', inject(
+    [ResidentsActions],
+    (residentsActions: ResidentsActions) => {
+      const dataAPI = [
+        {
+          id: 1,
+          username: 'johnathan.doe',
+          firstname: 'johnathan',
+          quote: 'my quote',
+        },
+        {
+          id: 2,
+          username: 'sebastian.müller',
+          firstname: 'sebastian',
+          quote: '',
+        },
+      ];
+      const expectedResult = [
+        {
+          id: 1,
+          username: 'johnathan.doe',
+          firstname: 'johnathan',
+          quote: '',
+        },
+        {
+          id: 2,
+          username: 'sebastian.müller',
+          firstname: 'sebastian',
+          quote: 'my quote',
+        },
+      ];
+      const store = createStore(residentsReducer);
+
+      const loadAction = residentsActions.residentsLoaded(dataAPI);
+      store.dispatch(loadAction);
+
+      expect(store.getState()).toEqual(dataAPI);
+
+      const quoteAction = residentsActions.quoteAssigned(1, 2);
+      store.dispatch(quoteAction);
+
+      expect(store.getState()).toEqual(expectedResult);
+    }
+  ));
 });

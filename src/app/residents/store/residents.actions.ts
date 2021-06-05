@@ -18,4 +18,14 @@ export class ResidentsActions {
       },
     };
   }
+
+  quoteAssigned(assigneeID: number, assignToID: number) {
+    return {
+      type: actions.QUOTE_ASSIGNED,
+      payload: {
+        assigneeID,
+        assignToID,
+      },
+    };
+  }
 }
