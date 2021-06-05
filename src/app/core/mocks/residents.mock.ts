@@ -1,4 +1,6 @@
-export const residents = [
+import { Resident } from '../models';
+
+export const residents: Resident[] = [
   {
     id: 1,
     username: 'edna.krabappel',
