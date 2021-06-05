@@ -52,14 +52,7 @@ export class ResidentFilterComponent implements OnInit, OnDestroy {
   }
 
   loadResidents() {
-    this.apiService
-      .fetchAll()
-      .pipe(takeUntil(this.unsubscribeAll))
-      .subscribe((res) => {
-        this.residentsStore.dispatch(
-          this.residentsActions.residentsLoaded(res)
-        );
-      });
+    this.apiService.fetchAll().pipe(takeUntil(this.unsubscribeAll)).subscribe();
   }
 
   ngOnDestroy(): void {
