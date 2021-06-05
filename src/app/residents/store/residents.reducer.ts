@@ -16,23 +16,28 @@ export function residentsReducer(
           .toLowerCase()
           .includes(action.payload.firstname.toLowerCase())
       );
-    case actions.QUOTE_ASSIGNED: {
-      const { quote } = state.filter(
-        (resident) => resident.id === action.payload.assigneeID
-      )[0];
-      const newState = state.map((resident) =>
-        resident.id !== action.payload.assignToID
-          ? resident
-          : { ...resident, quote }
+    case actions.QUOTE_ASSIGNED:
+      return assignQuote(
+        state,
+        action.payload.assigneeID,
+        action.payload.assignToID
       );
-      console.log(newState);
-      return newState.map((resident) =>
-        resident.id !== action.payload.assigneeID
-          ? resident
-          : { ...resident, quote: '' }
-      );
-    }
     default:
       return state;
   }
 }
+
+const assignQuote = (
+  state: Resident[],
+  assigneeID: number,
+  assignToID: number
+): Resident[] => {
+  const { quote } = state.filter((resident) => resident.id === assigneeID)[0];
+  const newState = state.map((resident) =>
+    resident.id !== assignToID ? resident : { ...resident, quote }
+  );
+
+  return newState.map((resident) =>
+    resident.id !== assigneeID ? resident : { ...resident, quote: '' }
+  );
+};

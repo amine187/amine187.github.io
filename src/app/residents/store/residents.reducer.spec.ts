@@ -152,10 +152,28 @@ describe('ResidentsReducer', () => {
 
       expect(store.getState()).toEqual(dataAPI);
 
-      const quoteAction = residentsActions.quoteAssigned(2, 1);
+      let quoteAction = residentsActions.quoteAssigned(2, 1);
       store.dispatch(quoteAction);
 
       expect(store.getState()).toEqual(expectedResult);
+
+      quoteAction = residentsActions.quoteAssigned(1, 2);
+      store.dispatch(quoteAction);
+
+      expect(store.getState()).toEqual([
+        {
+          id: 1,
+          username: 'johnathan.doe',
+          firstname: 'johnathan',
+          quote: '',
+        },
+        {
+          id: 2,
+          username: 'sebastian.müller',
+          firstname: 'sebastian',
+          quote: 'his quote',
+        },
+      ]);
     }
   ));
 });
