@@ -28,7 +28,7 @@ describe('ResidentsReducer', () => {
         { id: 2, username: 'foo2.bar2', firstname: 'foo2' },
       ];
       const store = createStore(residentsReducer);
-      const action = residentsActions.todoLoaded(dataAPI);
+      const action = residentsActions.residentsLoaded(dataAPI);
 
       expect(store.getState()).toEqual([]);
 
