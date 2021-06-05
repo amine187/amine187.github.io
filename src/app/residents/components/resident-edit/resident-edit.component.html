@@ -2,13 +2,17 @@
   <div class="col">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title mb-5">
+        <h4 class="card-title mb-5" [hidden]="!resident">
           Change information of resident
           <span class="bolder"
             >{{ resident?.firstname | titlecase }}
             {{ resident?.surname | titlecase }}</span
           >
         </h4>
+        <div class="alert" [hidden]="resident">
+          <strong>Resident not found!</strong>
+          Back to the <a href="#" class="alert-link">list</a> of residents?
+        </div>
       </div>
     </div>
   </div>

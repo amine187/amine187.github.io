@@ -61,4 +61,25 @@ describe('ResidentEditComponent', () => {
       expect(cardTitle.innerText).toEqual(expectedResult);
     }
   ));
+
+  it('should display an error message when the resident not found', inject(
+    [ApiService],
+    (apiService: ApiService) => {
+      const expectedResult =
+        'Resident not found! Back to the list of residents?';
+      const errorMessage = debugElement.nativeElement.querySelector('.alert');
+      const cardTitle = debugElement.nativeElement.querySelector('.card-title');
+
+      spyOn(apiService, 'getById').and.throwError(
+        new Error('Resident not found!')
+      );
+
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      expect(cardTitle.style.display).toBe('');
+      expect(component.resident).toBeUndefined();
+      expect(errorMessage.innerText).toEqual(expectedResult);
+    }
+  ));
 });
