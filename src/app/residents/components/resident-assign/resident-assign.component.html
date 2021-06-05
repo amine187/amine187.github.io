@@ -1,1 +1,12 @@
-<p>resident-assign works!</p>
+<select
+  class="form-select"
+  id="assignQuoteSelect"
+  [formControl]="assignCtrl"
+  (focus)="loadResidents()"
+  placeholder="Assign quote to"
+>
+  <option value="" selected>Assign quote to</option>
+  <option *ngFor="let resident of residents">
+    {{ resident.firstname }} {{ resident.surname }}
+  </option>
+</select>
