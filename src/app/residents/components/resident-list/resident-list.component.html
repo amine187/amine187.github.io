@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Username</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Address</th>
+          <th scope="col">Quote</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let resident of residents$">
+          <td>{{ resident.username }}</td>
+          <td>{{ resident.firstname }}</td>
+          <td>{{ resident.surname }}</td>
+          <td>{{ resident.gender }}</td>
+          <td>{{ resident.address }}</td>
+          <td>{{ resident.quote }}</td>
+          <td>
+            <div class="d-flex bd-highlight">
+              <a type="button" class="btn btn-success me-1" href="">Edit</a>
+              <select class="form-select" id="exampleSelect1">
+                <option>Assign quote to</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
