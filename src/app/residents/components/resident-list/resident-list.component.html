@@ -22,7 +22,12 @@
           <td>{{ resident.quote }}</td>
           <td>
             <div class="d-flex bd-highlight">
-              <a type="button" class="btn btn-success me-1" href="">Edit</a>
+              <a
+                type="button"
+                class="btn btn-success me-1"
+                [routerLink]="['/residents', resident.id, 'edit']"
+                >Edit</a
+              >
               <app-resident-assign
                 [assigneeID]="resident.id"
               ></app-resident-assign>
