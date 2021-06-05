@@ -1,7 +1,9 @@
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Unsubscribe } from 'redux';
+
 import { Resident, ResidentsStore } from 'src/app/core/models';
+import { ResidentsActions } from '../../store';
 
 @Component({
   selector: 'app-resident-assign',
@@ -18,7 +20,8 @@ export class ResidentAssignComponent implements OnInit, OnDestroy {
   assigneeID: number | null;
 
   constructor(
-    @Inject('ResidentsStore') private residentsStore: ResidentsStore
+    @Inject('ResidentsStore') private residentsStore: ResidentsStore,
+    private residentsActions: ResidentsActions
   ) {
     this.assigneeID = null;
     this.assignCtrl = new FormControl('');
@@ -36,6 +39,13 @@ export class ResidentAssignComponent implements OnInit, OnDestroy {
 
   loadResidents() {
     this.residentsStore.dispatch({ type: null });
+  }
+
+  assignQuote() {
+    const assignToID = parseInt(this.assignCtrl.value);
+    this.residentsStore.dispatch(
+      this.residentsActions.quoteAssigned(this.assigneeID, assignToID)
+    );
   }
 
   ngOnDestroy() {

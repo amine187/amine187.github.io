@@ -3,10 +3,11 @@
   id="assignQuoteSelect"
   [formControl]="assignCtrl"
   (focus)="loadResidents()"
+  (change)="assignQuote()"
   placeholder="Assign quote to"
 >
   <option value="" selected>Assign quote to</option>
-  <option *ngFor="let resident of residents">
+  <option *ngFor="let resident of residents" [value]="resident.id">
     {{ resident.firstname }} {{ resident.surname }}
   </option>
 </select>
