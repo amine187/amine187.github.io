@@ -20,7 +20,6 @@ export class ResidentListComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject('ResidentsStore') private residentsStore: ResidentsStore,
-    private residentsActions: ResidentsActions,
     private apiService: ApiService
   ) {}
 

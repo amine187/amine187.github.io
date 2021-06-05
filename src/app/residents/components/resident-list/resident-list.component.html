@@ -23,13 +23,9 @@
           <td>
             <div class="d-flex bd-highlight">
               <a type="button" class="btn btn-success me-1" href="">Edit</a>
-              <select class="form-select" id="exampleSelect1">
-                <option>Assign quote to</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+              <app-resident-assign
+                [assigneeID]="resident.id"
+              ></app-resident-assign>
             </div>
           </td>
         </tr>
