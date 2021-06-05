@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ResidentsActions, residentsStore } from './store';
 import { ResidentListComponent } from './components';
@@ -13,7 +14,7 @@ import { ResidentFilterComponent } from './components/resident-filter/resident-f
     ResidentListComponent,
     ResidentFilterComponent,
   ],
-  imports: [CommonModule, ResidentsRoutingModule],
+  imports: [CommonModule, ReactiveFormsModule, ResidentsRoutingModule],
   providers: [
     ResidentsActions,
     { provide: 'ResidentsStore', useValue: residentsStore },

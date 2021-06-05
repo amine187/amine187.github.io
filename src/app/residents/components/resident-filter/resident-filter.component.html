@@ -1,1 +1,15 @@
-<p>resident-filter works!</p>
+<div class="row">
+  <div class="col">
+    <div class="page-header d-flex justify-content-between mb-4">
+      <h4>SpringField Residents</h4>
+      <form class="d-flex" [formGroup]="filterForm">
+        <input
+          class="form-control col-form-label-lg"
+          type="text"
+          placeholder="Filter by name"
+          [formControl]="filterCtrl"
+        />
+      </form>
+    </div>
+  </div>
+</div>
