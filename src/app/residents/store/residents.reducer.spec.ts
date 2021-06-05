@@ -20,7 +20,7 @@ describe('ResidentsReducer', () => {
     expect(store.getState()).toEqual(expectedState);
   });
 
-  it('should return the a new state with added todo when RESIDENTS_LOADED action was dispatched', inject(
+  it('should return the a new state with loaded residents when RESIDENTS_LOADED action was dispatched', inject(
     [ResidentsActions],
     (residentsActions: ResidentsActions) => {
       const dataAPI = [
@@ -35,6 +35,82 @@ describe('ResidentsReducer', () => {
       store.dispatch(action);
 
       expect(store.getState()).toEqual(dataAPI);
+    }
+  ));
+
+  it('should return the a new state with filtered residents when RESIDENTS_FILTERED action was dispatched', inject(
+    [ResidentsActions],
+    (residentsActions: ResidentsActions) => {
+      const dataAPI = [
+        { id: 1, username: 'johnathan.doe', firstname: 'johnathan' },
+        { id: 2, username: 'sebastian.müller', firstname: 'sebastian' },
+        { id: 3, username: 'sara.dom', firstname: 'sara' },
+      ];
+      const expectedResult = [
+        { id: 1, username: 'johnathan.doe', firstname: 'johnathan' },
+      ];
+      const store = createStore(residentsReducer);
+
+      const loadAction = residentsActions.residentsLoaded(dataAPI);
+      store.dispatch(loadAction);
+
+      expect(store.getState()).toEqual(dataAPI);
+
+      const filterAction = residentsActions.residentsFiltered('johnathan');
+      store.dispatch(filterAction);
+
+      expect(store.getState()).toEqual(expectedResult);
+    }
+  ));
+
+  it('should return the a new state filtered by partial firstname when RESIDENTS_FILTERED action was dispatched', inject(
+    [ResidentsActions],
+    (residentsActions: ResidentsActions) => {
+      const dataAPI = [
+        { id: 1, username: 'johnathan.doe', firstname: 'johnathan' },
+        { id: 2, username: 'sebastian.müller', firstname: 'sebastian' },
+        { id: 3, username: 'sara.dom', firstname: 'sara' },
+      ];
+      const expectedResult = [
+        { id: 2, username: 'sebastian.müller', firstname: 'sebastian' },
+        { id: 3, username: 'sara.dom', firstname: 'sara' },
+      ];
+      const store = createStore(residentsReducer);
+
+      const loadAction = residentsActions.residentsLoaded(dataAPI);
+      store.dispatch(loadAction);
+
+      expect(store.getState()).toEqual(dataAPI);
+
+      const filterAction = residentsActions.residentsFiltered('s');
+      store.dispatch(filterAction);
+
+      expect(store.getState()).toEqual(expectedResult);
+    }
+  ));
+
+  it('should return the a new state filtered by uppercase firstname when RESIDENTS_FILTERED action was dispatched', inject(
+    [ResidentsActions],
+    (residentsActions: ResidentsActions) => {
+      const dataAPI = [
+        { id: 1, username: 'johnathan.doe', firstname: 'johnathan' },
+        { id: 2, username: 'sebastian.müller', firstname: 'sebastian' },
+        { id: 3, username: 'sara.dom', firstname: 'sara' },
+      ];
+      const expectedResult = [
+        { id: 3, username: 'sara.dom', firstname: 'sara' },
+      ];
+      const store = createStore(residentsReducer);
+
+      const loadAction = residentsActions.residentsLoaded(dataAPI);
+      store.dispatch(loadAction);
+
+      expect(store.getState()).toEqual(dataAPI);
+
+      const filterAction = residentsActions.residentsFiltered('SAR');
+      store.dispatch(filterAction);
+
+      expect(store.getState()).toEqual(expectedResult);
     }
   ));
 });

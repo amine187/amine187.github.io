@@ -10,6 +10,12 @@ export function residentsReducer(
   switch (action.type) {
     case actions.RESIDENTS_LOADED:
       return action.payload;
+    case actions.RESIDENTS_FILTERED:
+      return state.filter((resident) =>
+        resident.firstname
+          .toLowerCase()
+          .includes(action.payload.firstname.toLowerCase())
+      );
     default:
       return state;
   }

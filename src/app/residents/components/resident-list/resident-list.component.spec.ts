@@ -36,20 +36,10 @@ describe('ResidentListComponent', () => {
   });
 
   it('should fetch all the residents from the API when initialize the component', () => {
-    const APIData = [
-      {
-        id: 1,
-        username: 'foo.bar',
-        firstname: 'foo',
-      },
-    ];
-    const fetchAllSpy = spyOn(apiService, 'fetchAll').and.returnValue(
-      of(APIData)
-    );
+    const fetchAllSpy = spyOn(apiService, 'fetchAll').and.callThrough();
 
     component.ngOnInit();
 
     expect(fetchAllSpy).toHaveBeenCalled();
-    expect(component.residents$).toEqual(APIData);
   });
 });
