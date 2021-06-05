@@ -16,6 +16,7 @@ describe('ApiService', () => {
       ],
     });
     service = TestBed.inject(ApiService);
+    residentsActions = TestBed.inject(ResidentsActions);
   });
 
   it('should be created', () => {
@@ -35,7 +36,9 @@ describe('ApiService', () => {
     service
       .fetchAll()
       .subscribe((res) =>
-        expect(storeSpy).toHaveBeenCalledWith(residentsActions.residentsLoaded)
+        expect(storeSpy).toHaveBeenCalledWith(
+          residentsActions.residentsLoaded(res)
+        )
       );
   });
 });
