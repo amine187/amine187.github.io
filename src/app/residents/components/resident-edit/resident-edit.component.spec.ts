@@ -2,6 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 
 import { ResidentsActions, residentsStore } from '../../store';
@@ -16,7 +17,7 @@ describe('ResidentEditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, ReactiveFormsModule],
       declarations: [ResidentEditComponent],
       providers: [
         { provide: 'ResidentsStore', useValue: residentsStore },
@@ -80,6 +81,35 @@ describe('ResidentEditComponent', () => {
       expect(cardTitle.style.display).toBe('');
       expect(component.resident).toBeUndefined();
       expect(errorMessage.innerText).toEqual(expectedResult);
+    }
+  ));
+
+  it('should fill the form controls with the API data of the selected resident', inject(
+    [ApiService, ActivatedRoute],
+    (apiService: ApiService, route: ActivatedRoute) => {
+      const dataAPI = {
+        id: 2,
+        username: 'sebastian.müller',
+        firstname: 'sebastian',
+        surname: 'müller',
+        gender: 'male',
+        address: 'seeßstrasse 15,10567',
+        quote: 'hello world',
+      };
+      spyOn(route.snapshot.paramMap, 'get').and.returnValue('2');
+      spyOn(apiService, 'getById').and.returnValue(of(dataAPI));
+
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      const formControls = component.editForm.controls;
+      expect(component.resident).toBeDefined();
+      expect(formControls.username.value).toEqual('sebastian.müller');
+      expect(formControls.firstname.value).toEqual('sebastian');
+      expect(formControls.surname.value).toEqual('müller');
+      expect(formControls.gender.value).toEqual('male');
+      expect(formControls.address.value).toEqual('seeßstrasse 15,10567');
+      expect(formControls.quote.value).toEqual('hello world');
     }
   ));
 });
