@@ -112,4 +112,50 @@ describe('ResidentEditComponent', () => {
       expect(formControls.quote.value).toEqual('hello world');
     }
   ));
+
+  it('should enable "save changes" button when form is valid', inject(
+    [ApiService, ActivatedRoute],
+    (apiService: ApiService, route: ActivatedRoute) => {
+      const saveChangesBtn =
+        debugElement.nativeElement.querySelector('#save-btn');
+      const dataAPI = {
+        id: 2,
+        username: 'sebastian.müller',
+        firstname: 'sebastian',
+        surname: 'müller',
+        gender: 'male',
+        address: 'seeßstrasse 15,10567',
+        quote: 'hello world',
+      };
+      spyOn(route.snapshot.paramMap, 'get').and.returnValue('2');
+      spyOn(apiService, 'getById').and.returnValue(of(dataAPI));
+
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      expect(saveChangesBtn.disabled).toBeFalsy();
+    }
+  ));
+
+  it('should disable "save changes" button when form is invalid', inject(
+    [ApiService, ActivatedRoute],
+    (apiService: ApiService, route: ActivatedRoute) => {
+      const saveChangesBtn =
+        debugElement.nativeElement.querySelector('#save-btn');
+      const dataAPI = {
+        id: 2,
+        username: '',
+        firstname: '',
+      };
+      spyOn(route.snapshot.paramMap, 'get').and.returnValue('2');
+      spyOn(apiService, 'getById').and.returnValue(of(dataAPI));
+
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      expect(saveChangesBtn.disabled).toBeTruthy();
+    }
+  ));
+
+  it('should dispatch the update resident action when click on the button "save changes"', inject(
 });

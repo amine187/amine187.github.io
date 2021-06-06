@@ -74,7 +74,12 @@
           </div>
         </form>
         <div class="d-flex justify-content-end">
-          <button type="button" class="btn btn-primary me-2">
+          <button
+            id="save-btn"
+            type="button"
+            class="btn btn-primary me-2"
+            [disabled]="editForm.invalid"
+          >
             Save changes
           </button>
           <a type="button" class="btn btn-secondary" href="/"> Close </a>
