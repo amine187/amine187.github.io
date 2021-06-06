@@ -1,110 +1,98 @@
-<div class="row">
-  <div class="col">
-    <div class="alert alert-info w-100" [hidden]="resident">
-      <strong>Resident not found!</strong>
-      Back to the <a href="/" class="alert-link">list</a> of residents?
-    </div>
-    <div class="card" [hidden]="!resident">
-      <div class="card-body p-5">
-        <h4 class="card-title mb-5">
-          Change information of resident
-          <span class="bolder"
-            >{{ resident?.firstname | titlecase }}
-            {{ resident?.surname | titlecase }}</span
-          >
-        </h4>
-        <form class="row g-3 mb-3" [formGroup]="editForm">
-          <div class="col-md-6">
-            <label for="inputFirstname" class="form-label">First name</label>
-            <input
-              type="text"
-              class="form-control"
-              [class.is-invalid]="
-                editForm.controls.firstname.hasError('required')
-              "
-              id="inputFirstname"
-              placeholder="Enter your first name"
-              formControlName="firstname"
-            />
-            <div id="firstname-error" class="invalid-feedback">
-              First name is required.
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label for="inputLastname" class="form-label">Last name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputLastname"
-              placeholder="Enter your last name"
-              formControlName="surname"
-            />
-          </div>
-          <div class="col-md-6">
-            <label for="inputUsername" class="form-label">Username</label>
-            <input
-              type="text"
-              class="form-control"
-              [class.is-invalid]="
-                editForm.controls.username.hasError('required')
-              "
-              id="inputUsername"
-              placeholder="Enter your username"
-              formControlName="username"
-            />
-            <div id="username-error" class="invalid-feedback">
-              Username is required.
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label for="inputGender" class="form-label">Gender</label>
-            <select
-              id="inputGender"
-              class="form-select"
-              formControlName="gender"
-            >
-              <option selected>What's your gender?</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="diverse">Diverse</option>
-            </select>
-          </div>
-          <div class="col-md-12">
-            <label for="inputAddress" class="form-label">Address</label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputAddress"
-              placeholder="Example: 1234 Main St"
-              formControlName="address"
-            />
-          </div>
-          <div class="col-md-12">
-            <label for="inputQuote" class="form-label">Quote</label>
-            <textarea
-              class="form-control"
-              id="inputQuote"
-              rows="2"
-              placeholder="What's on your mind? {{
-                resident?.firstname | titlecase
-              }}"
-              formControlName="quote"
-            ></textarea>
-          </div>
-        </form>
-        <div class="d-flex justify-content-end">
-          <button
-            id="save-btn"
-            type="button"
-            class="btn btn-primary me-2"
-            [disabled]="editForm.invalid"
-            (click)="update()"
-          >
-            Save changes
-          </button>
-          <a type="button" class="btn btn-secondary" href="/"> Close </a>
+<div class="alert alert-info w-100" [hidden]="resident">
+  <strong>Resident not found!</strong>
+  Back to the <a href="/" class="alert-link">list</a> of residents?
+</div>
+<div class="card" [hidden]="!resident">
+  <div class="card-body p-5">
+    <h4 class="card-title mb-5">
+      Change information of resident
+      <span class="bolder"
+        >{{ resident?.firstname | titlecase }}
+        {{ resident?.surname | titlecase }}</span
+      >
+    </h4>
+    <form class="row g-3 mb-3" [formGroup]="editForm">
+      <div class="col-md-6">
+        <label for="inputFirstname" class="form-label">First name</label>
+        <input
+          type="text"
+          class="form-control"
+          [class.is-invalid]="editForm.controls.firstname.hasError('required')"
+          id="inputFirstname"
+          placeholder="Enter your first name"
+          formControlName="firstname"
+        />
+        <div id="firstname-error" class="invalid-feedback">
+          First name is required.
         </div>
       </div>
+      <div class="col-md-6">
+        <label for="inputLastname" class="form-label">Last name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputLastname"
+          placeholder="Enter your last name"
+          formControlName="surname"
+        />
+      </div>
+      <div class="col-md-6">
+        <label for="inputUsername" class="form-label">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          [class.is-invalid]="editForm.controls.username.hasError('required')"
+          id="inputUsername"
+          placeholder="Enter your username"
+          formControlName="username"
+        />
+        <div id="username-error" class="invalid-feedback">
+          Username is required.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="inputGender" class="form-label">Gender</label>
+        <select id="inputGender" class="form-select" formControlName="gender">
+          <option selected>What's your gender?</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="diverse">Diverse</option>
+        </select>
+      </div>
+      <div class="col-md-12">
+        <label for="inputAddress" class="form-label">Address</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputAddress"
+          placeholder="Example: 1234 Main St"
+          formControlName="address"
+        />
+      </div>
+      <div class="col-md-12">
+        <label for="inputQuote" class="form-label">Quote</label>
+        <textarea
+          class="form-control"
+          id="inputQuote"
+          rows="2"
+          placeholder="What's on your mind? {{
+            resident?.firstname | titlecase
+          }}"
+          formControlName="quote"
+        ></textarea>
+      </div>
+    </form>
+    <div class="d-flex justify-content-end">
+      <button
+        id="save-btn"
+        type="button"
+        class="btn btn-primary me-2"
+        [disabled]="editForm.invalid"
+        (click)="update()"
+      >
+        Save changes
+      </button>
+      <a type="button" class="btn btn-secondary" href="/"> Close </a>
     </div>
   </div>
 </div>
