@@ -1,5 +1,12 @@
+<div class="row">
+  <div class="col">
+    <div class="alert alert-info w-100" [hidden]="resident">
+      <strong>Resident not found!</strong>
       Back to the <a href="/" class="alert-link">list</a> of residents?
+    </div>
     <div class="card" [hidden]="!resident">
+      <div class="card-body p-5">
+        <h4 class="card-title mb-5">
           Change information of resident
           <span class="bolder"
             >{{ resident?.firstname | titlecase }}
