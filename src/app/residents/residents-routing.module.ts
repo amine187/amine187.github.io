@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ResidentEditComponent } from './components';
 import { ResidentsComponent } from './residents.component';
 
 export const routes: Routes = [
@@ -11,12 +12,16 @@ export const routes: Routes = [
         path: '',
         component: ResidentsComponent,
       },
+      {
+        path: ':id/edit',
+        component: ResidentEditComponent,
+      },
     ],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class ResidentsRoutingModule {}

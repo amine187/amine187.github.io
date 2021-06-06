@@ -1,4 +1,4 @@
-import { Resident } from 'src/app/core/models';
+import { Resident, UpdateResident } from 'src/app/core/models';
 
 import * as actions from './residents.actions.type';
 
@@ -25,6 +25,16 @@ export class ResidentsActions {
       payload: {
         assigneeID,
         assignToID,
+      },
+    };
+  }
+
+  residentUpdated(id: number, body: UpdateResident) {
+    return {
+      type: actions.RESIDENT_UPDATED,
+      payload: {
+        id,
+        body,
       },
     };
   }

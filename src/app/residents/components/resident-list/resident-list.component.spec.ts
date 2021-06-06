@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { Resident } from 'src/app/core/models';
 
@@ -14,6 +15,7 @@ describe('ResidentListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [ResidentListComponent],
       providers: [
         { provide: 'ResidentsStore', useValue: residentsStore },

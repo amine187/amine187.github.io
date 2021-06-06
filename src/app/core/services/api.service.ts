@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { ResidentsActions } from 'src/app/residents/store';
 
 import { residents } from '../mocks';
@@ -24,5 +24,11 @@ export class ApiService {
         return data;
       })
     );
+  }
+
+  getById(id: number): Observable<Resident> {
+    const [resident] = residents.filter((resident) => resident.id == id);
+
+    return resident ? of(resident) : throwError('Resident not found!');
   }
 }

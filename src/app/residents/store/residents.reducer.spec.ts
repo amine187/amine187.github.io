@@ -176,4 +176,50 @@ describe('ResidentsReducer', () => {
       ]);
     }
   ));
+
+  it('should return the a new state when RESIDENT_UPDATED action was dispatched', inject(
+    [ResidentsActions],
+    (residentsActions: ResidentsActions) => {
+      const dataAPI = [
+        {
+          id: 1,
+          username: 'johnathan.doe',
+          firstname: 'johnathan',
+          surname: 'doe',
+          gender: 'male',
+          address: 'seeßtr',
+          quote: 'my quote',
+        },
+      ];
+      const expectedResult = [
+        {
+          id: 1,
+          username: 'jessica.do',
+          firstname: 'jessica',
+          surname: 'do',
+          gender: 'female',
+          address: 'grünau',
+          quote: '',
+        },
+      ];
+      const store = createStore(residentsReducer);
+
+      const loadAction = residentsActions.residentsLoaded(dataAPI);
+      store.dispatch(loadAction);
+
+      expect(store.getState()).toEqual(dataAPI);
+
+      const updateAction = residentsActions.residentUpdated(1, {
+        username: 'jessica.do',
+        firstname: 'jessica',
+        surname: 'do',
+        gender: 'female',
+        address: 'grünau',
+        quote: '',
+      });
+      store.dispatch(updateAction);
+
+      expect(store.getState()).toEqual(expectedResult);
+    }
+  ));
 });

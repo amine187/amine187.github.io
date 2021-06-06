@@ -8,6 +8,7 @@ import { ResidentsRoutingModule } from './residents-routing.module';
 import { ResidentsComponent } from './residents.component';
 import { ResidentFilterComponent } from './components/resident-filter/resident-filter.component';
 import { ResidentAssignComponent } from './components/resident-assign/resident-assign.component';
+import { ResidentEditComponent } from './components/resident-edit/resident-edit.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ResidentAssignComponent } from './components/resident-assign/resident-a
     ResidentListComponent,
     ResidentFilterComponent,
     ResidentAssignComponent,
+    ResidentEditComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, ResidentsRoutingModule],
   providers: [

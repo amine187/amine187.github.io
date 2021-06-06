@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
 import { ResidentsActions, residentsStore } from 'src/app/residents/store';
 import { residents } from '../mocks';
@@ -40,5 +41,22 @@ describe('ApiService', () => {
           residentsActions.residentsLoaded(res)
         )
       );
+  });
+
+  it('should return the correct resident by the ID', () => {
+    service.getById(1).subscribe((resident) => {
+      expect(resident).toBeDefined();
+      expect(resident?.id).toBe(1);
+      expect(resident?.username).toBe('edna.krabappel');
+    });
+  });
+
+  it('should return undefined for the wrong ID', () => {
+    service.getById(15).subscribe(
+      (resident) => {
+        expect(resident).toBeUndefined();
+      },
+      (error) => expect(error).toEqual('Resident not found!')
+    );
   });
 });
