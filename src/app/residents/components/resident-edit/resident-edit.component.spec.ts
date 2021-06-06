@@ -157,5 +157,54 @@ describe('ResidentEditComponent', () => {
     }
   ));
 
+  it('should display an error message when the username and the firstname fields are empty', inject(
+    [ApiService, ActivatedRoute],
+    (apiService: ApiService, route: ActivatedRoute) => {
+      const usernameInput =
+        debugElement.nativeElement.querySelector('#inputUsername');
+      const usernameError =
+        debugElement.nativeElement.querySelector('#username-error');
+
+      const firstnameInput =
+        debugElement.nativeElement.querySelector('#inputFirstname');
+      const firstnameError =
+        debugElement.nativeElement.querySelector('#firstname-error');
+
+      const dataAPI = {
+        id: 2,
+        username: 'sebastian.müller',
+        firstname: 'sebastian',
+        surname: 'müller',
+        gender: 'male',
+        address: 'seeßstrasse 15,10567',
+        quote: 'hello world',
+      };
+      spyOn(route.snapshot.paramMap, 'get').and.returnValue('2');
+      spyOn(apiService, 'getById').and.returnValue(of(dataAPI));
+
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      expect(firstnameInput.classList.contains('is-invalid')).toBeFalsy();
+      expect(usernameInput.classList.contains('is-invalid')).toBeFalsy();
+
+      firstnameInput.value = '';
+      firstnameInput.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      expect(firstnameInput.classList.contains('is-invalid')).toBeTruthy();
+      expect(firstnameError.innerText.trim()).toEqual(
+        'First name is required.'
+      );
+
+      usernameInput.value = '';
+      usernameInput.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      expect(usernameInput.classList.contains('is-invalid')).toBeTruthy();
+      expect(usernameError.innerText).toEqual('Username is required.');
+    }
+  ));
+
   it('should dispatch the update resident action when click on the button "save changes"', inject(
 });

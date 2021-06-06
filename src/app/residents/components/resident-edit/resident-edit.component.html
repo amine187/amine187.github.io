@@ -12,10 +12,16 @@
             <input
               type="text"
               class="form-control"
+              [class.is-invalid]="
+                editForm.controls.firstname.hasError('required')
+              "
               id="inputFirstname"
               placeholder="Enter your first name"
               formControlName="firstname"
             />
+            <div id="firstname-error" class="invalid-feedback">
+              First name is required.
+            </div>
           </div>
           <div class="col-md-6">
             <label for="inputLastname" class="form-label">Last name</label>
@@ -32,10 +38,16 @@
             <input
               type="text"
               class="form-control"
+              [class.is-invalid]="
+                editForm.controls.username.hasError('required')
+              "
               id="inputUsername"
               placeholder="Enter your username"
               formControlName="username"
             />
+            <div id="username-error" class="invalid-feedback">
+              Username is required.
+            </div>
           </div>
           <div class="col-md-6">
             <label for="inputGender" class="form-label">Gender</label>
