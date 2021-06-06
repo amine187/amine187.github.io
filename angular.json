@@ -98,9 +98,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "pico-pixel-challenge"
+  "defaultProject": "pico-pixel-challenge",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

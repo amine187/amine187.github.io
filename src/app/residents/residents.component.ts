@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-residents',
   templateUrl: './residents.component.html',
-  styleUrls: ['./residents.component.css']
+  styleUrls: ['./residents.component.css'],
 })
-export class ResidentsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class ResidentsComponent {
+  constructor() {}
 }
