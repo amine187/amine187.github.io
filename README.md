@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Deployment
 
-This application deployed on github pages please check the [demo](https://amine187.github.io//pico-pixel-challenge/)
+This application deployed on github pages please check the [demo](https://amine187.github.io/pico-pixel-challenge/)
 
 ## Development server
 
