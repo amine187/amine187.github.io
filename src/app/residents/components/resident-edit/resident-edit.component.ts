@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { Resident } from 'src/app/core/models';
+import { Resident, ResidentsStore } from 'src/app/core/models';
 import { ApiService } from 'src/app/core/services';
+import { ResidentsActions } from '../../store';
 
 @Component({
   selector: 'app-resident-edit',
@@ -18,7 +19,10 @@ export class ResidentEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
+    @Inject('ResidentsStore') private residentsStore: ResidentsStore,
+    private residentsActions: ResidentsActions
   ) {
     this.residentId = null;
     this.resident = undefined;
@@ -59,5 +63,17 @@ export class ResidentEditComponent implements OnInit {
       address,
       quote,
     });
+  }
+
+  update() {
+    if (this.residentId && this.editForm.valid) {
+      this.residentsStore.dispatch(
+        this.residentsActions.residentUpdated(
+          this.residentId,
+          this.editForm.value
+        )
+      );
+      this.router.navigate(['/']);
+    }
   }
 }

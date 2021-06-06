@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
@@ -207,4 +207,67 @@ describe('ResidentEditComponent', () => {
   ));
 
   it('should dispatch the update resident action when click on the button "save changes"', inject(
+    [ApiService, ActivatedRoute],
+    (apiService: ApiService, route: ActivatedRoute) => {
+      const saveChangesBtn =
+        debugElement.nativeElement.querySelector('#save-btn');
+      const storeSpy = spyOn(
+        (<any>component).residentsStore,
+        'dispatch'
+      ).and.callThrough();
+      const dataAPI = {
+        id: 2,
+        username: 'sebastian.müller',
+        firstname: 'sebastian',
+        surname: 'müller',
+        gender: 'male',
+        address: 'seeßstrasse 15,10567',
+        quote: 'hello world',
+      };
+      const payload = {
+        username: 'sebastian.müller',
+        firstname: 'sebastian',
+        surname: 'müller',
+        gender: 'male',
+        address: 'seeßstrasse 15,10567',
+        quote: 'hello world',
+      };
+      spyOn(route.snapshot.paramMap, 'get').and.returnValue('2');
+      spyOn(apiService, 'getById').and.returnValue(of(dataAPI));
+
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      saveChangesBtn.dispatchEvent(new Event('click'));
+      fixture.detectChanges();
+
+      expect(storeSpy).toHaveBeenCalledWith(
+        residentsActions.residentUpdated(2, payload)
+      );
+    }
+  ));
+
+  it('should redirect to the list of residents page when the user click on "save changes" button', inject(
+    [ApiService, ActivatedRoute, Router],
+    (apiService: ApiService, route: ActivatedRoute, router: Router) => {
+      const saveChangesBtn =
+        debugElement.nativeElement.querySelector('#save-btn');
+      const routerSpy = spyOn(router, 'navigate').and.callThrough();
+      const dataAPI = {
+        id: 2,
+        username: 'sebastian.müller',
+        firstname: 'sebastian',
+      };
+      spyOn(route.snapshot.paramMap, 'get').and.returnValue('2');
+      spyOn(apiService, 'getById').and.returnValue(of(dataAPI));
+
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      saveChangesBtn.dispatchEvent(new Event('click'));
+      fixture.detectChanges();
+
+      expect(routerSpy).toHaveBeenCalledWith(['/']);
+    }
+  ));
 });
