@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Username</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Address</th>
+          <th scope="col">Quote</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let resident of residents$">
+          <td>{{ resident.username }}</td>
+          <td>{{ resident.firstname }}</td>
+          <td>{{ resident.surname }}</td>
+          <td>{{ resident.gender }}</td>
+          <td>{{ resident.address }}</td>
+          <td>{{ resident.quote }}</td>
+          <td>
+            <div class="d-flex">
+              <a
+                type="button"
+                class="btn btn-success me-1"
+                [routerLink]="['/residents', resident.id, 'edit']"
+                >Edit</a
+              >
+              <app-resident-assign
+                [assigneeID]="resident.id"
+              ></app-resident-assign>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

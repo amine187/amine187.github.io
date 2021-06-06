@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - "15"
+dist: trusty
+sudo: required
+branches:
+  only:
+    - main
+before_script:
+  - npm install -g @angular/cli
+script:
+  - ng lint
+  - npm run test-headless
+  - ng build --prod --base-href https://amine187.github.io//pico-pixel-challenge/
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist/pico-pixel-challenge
+  on:
+    branch: main
