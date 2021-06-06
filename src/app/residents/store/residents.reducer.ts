@@ -16,6 +16,22 @@ export function residentsReducer(
           .toLowerCase()
           .includes(action.payload.firstname.toLowerCase())
       );
+    case actions.RESIDENT_UPDATED:
+      const { username, firstname, surname, gender, address, quote } =
+        action.payload.body;
+      return state.map((resident) =>
+        resident.id !== action.payload.id
+          ? resident
+          : {
+              ...resident,
+              username,
+              firstname,
+              surname,
+              gender,
+              address,
+              quote,
+            }
+      );
     case actions.QUOTE_ASSIGNED:
       return assignQuote(
         state,
