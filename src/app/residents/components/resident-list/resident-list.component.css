@@ -1,0 +1,7 @@
+table>*>*>:nth-child(6){
+  width:30%
+}
+
+table>*>*>:last-child{
+  width:20%
+}
